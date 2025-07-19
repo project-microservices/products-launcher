@@ -1,8 +1,7 @@
-version: '3'
+version: '3.8'
 
 
 services:
-
   
   nats-server:
     image: nats:latest
@@ -21,6 +20,25 @@ services:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
 
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-init:
+    image: mongo:6
+    depends_on:
+      - mongo
+    entrypoint:
+      [
+        "bash",
+        "-c",
+        "sleep 5 && mongosh --host mongo --eval 'rs.initiate({_id: \"rs0\", members: [{ _id: 0, host: \"mongo:27017\" }]})'"
+      ]
   auth-ms:
     build: ./auth-ms
     volumes:
@@ -31,6 +49,12 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
       - DATABASE_URL=${AUTH_DATABASE_URL}
       - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - mongo
+      - mongo-init
+
+volumes:
+  mongo_data:
 
 #   products-ms:
 #     build: ./products-ms
