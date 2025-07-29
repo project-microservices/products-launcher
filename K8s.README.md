@@ -97,7 +97,7 @@ minikube service client-gateway
 * Para exportar los archivos de configuración
 
 ```
-kubectl get secret <nombre> -o yaml > <nombre>.yml
+    kubectl get secret <nombre> -o yaml > <nombre>.yml
 ```
 
 * Aplicar la configuración basado en el archivo
