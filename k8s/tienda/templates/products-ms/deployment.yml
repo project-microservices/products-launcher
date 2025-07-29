@@ -16,9 +16,11 @@ spec:
       creationTimestamp: null
       labels:
         app: products-ms
-    spec:
+    spec:      
+      imagePullSecrets:
+        - name: gcr-json-key
       containers:
-      - image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/products-ms
+      - image: southamerica-east1-docker.pkg.dev/microservices-466721/images-registry/products-ms
         name: products-ms
         env:
         - name: PORT
