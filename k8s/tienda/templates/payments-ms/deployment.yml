@@ -17,8 +17,10 @@ spec:
       labels:
         app: payments-ms
     spec:
+      imagePullSecrets:
+        - name: gcr-json-key
       containers:
-      - image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/payments-ms
+      - image: southamerica-east1-docker.pkg.dev/microservices-466721/images-registry/payments-ms
         name: payments-ms
         env:
         - name: PORT

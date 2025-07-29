@@ -13,7 +13,6 @@
 * Revisar logs: `kubectl logs <nombre>`
 
 
-
 # Crear deployment:
 ```
 kubectl create deployment <nombre> --image=<registro/url/imagen> --dry-run=client -o yaml > deployment.yml
@@ -66,6 +65,32 @@ kubectl create secret docker-registry gcr-json-key --docker-server=SERVIDOR-DE-G
 ```
 kubectl patch serviceaccounts default -p '{ "imagePullSecrets": [{ "name":"gcr-json-key" }] }'
 ```
+
+## Comandos minikube
+
+minikube start --driver=docker --profile=minikube-local
+kubectl config use-context minikube-local
+kubectl config get-contexts
+kubectl cluster-info
+
+helm uninstall tienda -n default
+helm install tienda .
+
+gcloud auth login
+
+
+kubectl get secret -A --field-selector type=kubernetes.io/dockerconfigjson
+kubectl delete secret gcr-json-key -n default
+
+
+## Acceder al puerto configurado en el servicio de minikube
+# Verifica los perfiles disponibles
+minikube profile list
+
+# Cambia al perfil activo con:
+minikube profile minikube-local
+minikube service client-gateway
+
 
 
 ## Exportar y aplicar configuraciones con archivos (secrets en este caso)
