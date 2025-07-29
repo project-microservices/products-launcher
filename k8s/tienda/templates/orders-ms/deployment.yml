@@ -17,8 +17,10 @@ spec:
       labels:
         app: orders-ms
     spec:
+      imagePullSecrets:
+        - name: gcr-json-key
       containers:
-      - image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/orders-ms
+      - image: southamerica-east1-docker.pkg.dev/microservices-466721/images-registry/orders-ms
         name: orders-ms
         env:
         - name: PORT

@@ -49,4 +49,17 @@ Si se hace al revés, se perderán las referencias de los sub-módulos en el rep
 3. Ejecutar el comando
 ```
 docker compose -f docker-compose.prod.yml build
+
+
+
+
+
+
 ```
+
+## ngrok para exponer un puerto 
+
+ngrok http http://localhost:3003
+
+
+Code wisper comandos en terminal 
